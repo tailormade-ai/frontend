@@ -329,6 +329,10 @@ const Feature = ({
   );
 };
 
+AccordionItem.displayName = "AccordionItem";
+AccordionTrigger.displayName = "AccordionTrigger";
+AccordionContent.displayName = "AccordionContent";
+
 export function FeatureSection() {
   return <Feature collapseDelay={5000} linePosition="left" />;
 }

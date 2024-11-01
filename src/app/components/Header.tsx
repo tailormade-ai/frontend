@@ -1,8 +1,6 @@
 "use client";
 
 import { buttonVariants } from "@/components/ui/button";
-import { UserButton } from "@clerk/nextjs";
-import { SignedIn } from "@clerk/nextjs";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";

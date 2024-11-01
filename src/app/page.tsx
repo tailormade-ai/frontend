@@ -39,8 +39,8 @@ export default function Home() {
               Get Access Today
             </h3>
             <p className="mx-auto text-balance text-center md:text-lg">
-              We're currently in beta with some initial customers. Sign up for
-              our waitlist here
+              We&apos;re currently in beta with some initial customers. Sign up
+              for our waitlist here
             </p>
             <a
               href="#"
