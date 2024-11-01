@@ -52,7 +52,10 @@ export function StickyHeader({
   );
 
   return (
-    <header ref={stickyNavRef} className="sticky top-0 z-50 px-10 py-7 xl:px-0">
+    <header
+      ref={stickyNavRef}
+      className="sticky top-0 z-50 w-full px-10 py-7 xl:px-0"
+    >
       <nav className="relative mx-auto flex items-center justify-between max-w-6xl">
         <motion.div
           className="text-xl font-bold"
@@ -206,13 +209,13 @@ export function Header({ children }: { children: React.ReactNode }) {
   const containerRef = useRef(null);
 
   return (
-    <main ref={containerRef} className="h-[50vh] w-full overflow-y-auto">
-      <StickyHeader containerRef={containerRef} />
-      <div className="w-full">
-        <div className="mx-auto flex h-[100vh] w-full max-w-6xl flex-col items-center justify-center gap-y-5">
-          {children}
+    <>
+      <div ref={containerRef} className="h-screen w-full overflow-y-auto">
+        <StickyHeader containerRef={containerRef} />
+        <div className="w-full">
+          <div className="mx-auto w-full">{children}</div>
         </div>
       </div>
-    </main>
+    </>
   );
 }
