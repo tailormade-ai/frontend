@@ -144,10 +144,6 @@ export function StickyHeader({
           }}
           transition={{ duration: 0.15 }}
         >
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
-
           <Link
             className={buttonVariants({ variant: "outline" })}
             href="/dashboard"
