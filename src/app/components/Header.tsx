@@ -1,6 +1,8 @@
 "use client";
 
 import { buttonVariants } from "@/components/ui/button";
+import { UserButton } from "@clerk/nextjs";
+import { SignedIn } from "@clerk/nextjs";
 import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -64,7 +66,7 @@ export function StickyHeader({
           }}
           transition={{ duration: 0.15 }}
         >
-          Tailormade
+          <Link href="/">Tailormade</Link>
         </motion.div>
 
         <ul className="sticky left-4 right-4 top-4 z-[60] hidden items-center justify-center gap-x-5 md:flex">
@@ -142,6 +144,10 @@ export function StickyHeader({
           }}
           transition={{ duration: 0.15 }}
         >
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+
           <Link
             className={buttonVariants({ variant: "outline" })}
             href="/dashboard"
@@ -212,7 +218,7 @@ export function Header({ children }: { children: React.ReactNode }) {
       <div ref={containerRef} className="h-screen w-full overflow-y-auto">
         <StickyHeader containerRef={containerRef} />
         <div className="w-full">
-          <div className="mx-auto w-full">{children}</div>
+          <div className="mx-auto w-full max-w-6xl">{children}</div>
         </div>
       </div>
     </>
