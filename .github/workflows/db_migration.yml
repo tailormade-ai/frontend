@@ -12,10 +12,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - uses: oven-sh/setup-bun@v2
       - name: Install dependencies & tooling
         run: |
-          npm install
-          npm install -g drizzle-orm drizzle-kit pg
+          bun install
+          bun install -g drizzle-orm drizzle-kit pg @libsql/client
       - name: Apply migrations
         run: drizzle-kit push
         env:
