@@ -1,14 +1,10 @@
 import { google } from 'googleapis';
 import { NextRequest, NextResponse } from 'next/server';
 import { currentUser } from '@clerk/nextjs/server';
-import crypto from 'crypto';
 
-/**
- * To use OAuth2 authentication, we need access to a CLIENT_ID, CLIENT_SECRET, AND REDIRECT_URI
- * from the client_secret.json file. To get these credentials for your application, visit
- * https://console.cloud.google.com/apis/credentials.
- */
+
 export async function POST(request: NextRequest) {
+    console.log(request)
 
   const oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
