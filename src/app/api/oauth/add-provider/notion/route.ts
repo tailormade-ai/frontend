@@ -1,6 +1,5 @@
 import { db } from "@/db";
 import { oauthTokensTable } from "@/db/schema";
-import { currentUser } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {

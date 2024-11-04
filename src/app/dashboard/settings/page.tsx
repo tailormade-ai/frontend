@@ -5,8 +5,6 @@ import { oauthTokensTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
 import OAuthProviderCard from "@/app/components/OAuthProviderCard";
 
 const Settings = async () => {

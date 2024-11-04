@@ -27,7 +27,9 @@ const OAuthProviderCard = ({ provider, provider_key }: Props) => {
       method: "POST",
       body: JSON.stringify({ provider_key, provider }),
     });
-    router.refresh();
+    if (res.ok) {
+      router.refresh();
+    }
   };
   return (
     <div
