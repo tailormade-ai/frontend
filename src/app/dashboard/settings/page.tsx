@@ -5,6 +5,7 @@ import { oauthTokensTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import OAuthProviderCard from "@/app/components/OAuthProviderCard";
 
 const Settings = async () => {
   const user = await currentUser();
@@ -35,14 +36,15 @@ const Settings = async () => {
         </p>
         <div className="flex flex-col gap-2">
           <AddProviderButton provider="Google" />
+          <AddProviderButton provider="Notion" />
         </div>
       </div>
       {oauthTokens.map((token) => (
-        <div key={token.id}>
-          <p>
-            {token.provider} - {token.provider_key}
-          </p>
-        </div>
+        <OAuthProviderCard
+          key={`${token.provider}-${token.provider_key}`}
+          provider={token.provider}
+          provider_key={token.provider_key as string}
+        />
       ))}
     </div>
   );
