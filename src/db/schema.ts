@@ -26,6 +26,7 @@ export const oauthTokensTable = sqliteTable("oauth_tokens", {
   accessToken: text("access_token"),
   idToken: text("id_token"),
   refreshToken: text("refresh_token"),
+  payload: text("payload"),
   expiresAt: text("expires_at")
     .notNull()
     .default(sql`CURRENT_TIMESTAMP`),

@@ -2,10 +2,9 @@ import { google } from 'googleapis';
 import { NextResponse } from 'next/server';
 import { currentUser } from '@clerk/nextjs/server';
 
+import { NextRequest } from 'next/server';
 
-export async function POST() {
-    
-
+const generateGoogleOAuth = async () => {
   const oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
     process.env.GOOGLE_CLIENT_SECRET, 
@@ -47,5 +46,20 @@ export async function POST() {
     state: userId
   });
 
-  return NextResponse.json({ url: authorizationUrl, state: userId });
+  return authorizationUrl;
+}
+
+
+export async function POST(req: NextRequest) {
+
+  const { provider } = await req.json();
+    
+
+  if (provider === "google") {
+    const authorizationUrl = await generateGoogleOAuth();
+    return NextResponse.json({ url: authorizationUrl });
+  }
+
+
+  throw new Error(`Provider ${provider} not found`);
 }
