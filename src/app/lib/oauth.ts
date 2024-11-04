@@ -18,8 +18,7 @@ export const generateNotionOAuthUrl = async (userId: string | undefined) => {
     throw new Error("User ID is required");
   }
 
-  const redirectUri = `${window.location.origin}/api/oauth/add-provider/notion`;
-  window.location.href = `https://api.notion.com/v1/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_NOTION_CLIENT_ID}&response_type=code&owner=user&redirect_uri=${redirectUri}&state=${userId}`;
+  window.location.href = `https://api.notion.com/v1/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_NOTION_CLIENT_ID}&response_type=code&owner=user&redirect_uri=${process.env.NEXT_PUBLIC_NOTION_REDIRECT_URL}&state=${userId}`;
 };
 
 

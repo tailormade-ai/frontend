@@ -29,7 +29,7 @@ export async function GET(req: NextRequest) {
     body: JSON.stringify({
       grant_type: "authorization_code",
       code: code,
-      redirect_uri: process.env.NEXT_PUBLIC_NOTION_REDIRECT_URI,
+      redirect_uri: process.env.NEXT_PUBLIC_NOTION_REDIRECT_URL,
     }),
   });
 
