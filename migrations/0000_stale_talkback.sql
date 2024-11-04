@@ -1,12 +1,12 @@
 CREATE TABLE `oauth_tokens` (
-	`id` text PRIMARY KEY NOT NULL,
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`user_id` text NOT NULL,
 	`provider` text NOT NULL,
+	`provider_key` text,
 	`access_token` text,
 	`id_token` text,
 	`refresh_token` text,
 	`expires_at` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	`status` text NOT NULL,
 	`created_at` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	`updated_at` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	FOREIGN KEY (`user_id`) REFERENCES `users`(`user_id`) ON UPDATE no action ON DELETE cascade

@@ -5,15 +5,8 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1730453056786,
-      "tag": "0000_perfect_thunderbolt",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "6",
-      "when": 1730692906787,
-      "tag": "0001_boring_tusk",
+      "when": 1730693322333,
+      "tag": "0000_stale_talkback",
       "breakpoints": true
     }
   ]
