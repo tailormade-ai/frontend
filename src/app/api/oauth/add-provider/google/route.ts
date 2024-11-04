@@ -1,34 +1,54 @@
 import { NextResponse } from "next/server";
+import { google } from "googleapis";
+import { db } from "@/db";
+import { eq } from "drizzle-orm";
+import { oauthTokensTable, usersTable } from "@/db/schema";
 
 export async function GET(request: Request) {
   console.log("GET Request received");
   const url = new URL(request.url);
 
-  console.log(url)
+  const user_id = url.searchParams.get("state")
+  const code = url.searchParams.get("code")
 
-  
-  
-  // Get hash fragment params since Google OAuth returns them after #
-  const hashParams = url.hash.substring(1).split('&').reduce((params: Record<string, string>, param) => {
-    const [key, value] = param.split('=');
-    params[key] = decodeURIComponent(value);
-    return params;
-  }, {});
+  if (!user_id || !code) {
+    console.error("Missing required OAuth parameters", { user_id, code });
+    return NextResponse.json({
+      message: "Missing required OAuth parameters",
+    }, { status: 400 });
+  }
 
-  // Get regular query params
-  const queryParams = Object.fromEntries(url.searchParams);
+  const oauth2Client = new google.auth.OAuth2(
+    process.env.GOOGLE_CLIENT_ID,
+    process.env.GOOGLE_CLIENT_SECRET,
+    process.env.GOOGLE_REDIRECT_URL
+  );
 
-  // Log both sets of params
-  console.log('Hash params:', hashParams);
-  console.log('Query params:', queryParams);
+  const { tokens } = await oauth2Client.getToken(code);
 
-  const allParams = {
-    ...hashParams,
-    ...queryParams
-  };
-
-  return NextResponse.json({ 
-    message: "OAuth callback processed",
-    params: allParams 
+  const decoded = await oauth2Client.verifyIdToken({
+    idToken: tokens.id_token!,
+    audience: process.env.GOOGLE_CLIENT_ID
   });
+  const payload = decoded.getPayload()
+  
+  if(!payload) {
+    return NextResponse.json({
+      message: "OAuth Payload not found",
+    }, { status: 400 });
+  }
+
+
+  await db.insert(oauthTokensTable).values({
+    userId: user_id,
+    provider: 'google',
+    provider_key: payload?.email,
+    accessToken: tokens.access_token,
+    idToken: tokens.id_token, 
+    refreshToken: tokens.refresh_token,
+    expiresAt: new Date(tokens.expiry_date!).toISOString()
+  });
+
+
+  return NextResponse.redirect(new URL('/dashboard/settings?message=OAuth%20added', request.url));
 }

@@ -17,18 +17,18 @@ export const usersTable = sqliteTable("users", {
 });
 
 export const oauthTokensTable = sqliteTable("oauth_tokens", {
-  id: text("id").primaryKey(),
+  id: integer("id").primaryKey({ autoIncrement: true }),
   userId: text("user_id")
     .notNull()
     .references(() => usersTable.userId, { onDelete: "cascade" }),
   provider: text("provider").notNull(),
+  provider_key: text("provider_key"),
   accessToken: text("access_token"),
   idToken: text("id_token"),
   refreshToken: text("refresh_token"),
   expiresAt: text("expires_at")
     .notNull()
     .default(sql`CURRENT_TIMESTAMP`),
-  status: text("status", { enum: ["PENDING", "COMPLETED"] }).notNull(),
   createdAt: text("created_at")
     .notNull()
     .default(sql`CURRENT_TIMESTAMP`),
