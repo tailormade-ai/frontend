@@ -33,7 +33,7 @@ const AddProviderButton = ({ provider }: AddProviderButtonProps) => {
         title: "Added provider",
         description: `Starting OAuth flow for ${provider}`,
       });
-    } catch (error) {
+    } catch {
       toast({
         title: "Error adding provider",
         description: `Error adding ${provider} provider`,

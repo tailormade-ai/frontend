@@ -1,7 +1,5 @@
 import React from "react";
 import UserAccountButton from "../components/UserAccountButton";
-import { Separator } from "@/components/ui/separator";
-import { SidebarNav } from "../components/SidebarNav";
 import { ClerkProvider } from "@clerk/nextjs";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {

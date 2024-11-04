@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/popover";
 import { UserRoundCog } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
 import { useAuth, useUser } from "@clerk/nextjs";
 import Link from "next/link";
 

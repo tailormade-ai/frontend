@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 import { google } from "googleapis";
 import { db } from "@/db";
-import { eq } from "drizzle-orm";
-import { oauthTokensTable, usersTable } from "@/db/schema";
+import { oauthTokensTable } from "@/db/schema";
 
 export async function GET(request: Request) {
   console.log("GET Request received");

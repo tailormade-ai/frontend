@@ -169,7 +169,7 @@ const Feature = ({
     }, collapseDelay);
 
     return () => clearInterval(timer);
-  }, [currentIndex]);
+  }, [currentIndex, collapseDelay]);
 
   useEffect(() => {
     const handleAutoScroll = () => {
@@ -181,7 +181,7 @@ const Feature = ({
     const autoScrollTimer = setInterval(handleAutoScroll, collapseDelay);
 
     return () => clearInterval(autoScrollTimer);
-  }, [currentIndex]);
+  }, [currentIndex, collapseDelay]);
 
   useEffect(() => {
     const carousel = carouselRef.current;
