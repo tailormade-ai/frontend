@@ -11,9 +11,12 @@
     "generate": "drizzle-kit generate",
     "migrate": "drizzle-kit migrate",
     "push": "drizzle-kit push",
-    "next": "next"
+    "next": "next",
+    "add-component": "npx shadcn@latest add"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^0.0.72",
+    "@ai-sdk/react": "^0.0.70",
     "@clerk/nextjs": "^6.1.0",
     "@libsql/client": "^0.14.0",
     "@radix-ui/react-accordion": "^1.2.1",
