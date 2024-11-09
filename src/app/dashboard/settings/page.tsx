@@ -1,11 +1,11 @@
 import { db } from "@/db";
-import AddProviderButton from "../../components/AddProviderButton";
+import AddProviderButton from "../../../components/AddProviderButton";
 import { Separator } from "@/components/ui/separator";
 import { oauthTokensTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import OAuthProviderCard from "@/app/components/OAuthProviderCard";
+import OAuthProviderCard from "@/components/OAuthProviderCard";
 
 const Settings = async () => {
   const user = await currentUser();

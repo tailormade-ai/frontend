@@ -1,5 +1,5 @@
-import ClientReturn from "@/app/components/ClientReturn";
-import { SidebarNav } from "@/app/components/SidebarNav";
+import ClientReturn from "@/components/ClientReturn";
+import { SidebarNav } from "@/components/SidebarNav";
 import { Separator } from "@/components/ui/separator";
 import React from "react";
 
