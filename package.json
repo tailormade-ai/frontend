@@ -4,15 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "npx husky install",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "studio": "drizzle-kit studio",
     "generate": "drizzle-kit generate",
     "migrate": "drizzle-kit migrate",
-    "push": "drizzle-kit push",
-    "prepare": "husky"
+    "push": "drizzle-kit push"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.1.0",
