@@ -22,6 +22,13 @@
       "when": 1731121989726,
       "tag": "0002_clean_crystal",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1731126210347,
+      "tag": "0003_amazing_wrecker",
+      "breakpoints": true
     }
   ]
 }

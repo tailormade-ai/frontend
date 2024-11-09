@@ -1,4 +1,7 @@
 import ChatInput from "@/components/ChatInput";
+import { db } from "@/db";
+import { chatTable, messageTable } from "@/db/schema";
+import { currentUser } from "@clerk/nextjs/server";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -7,14 +10,30 @@ import React from "react";
 async function createChat(formData: FormData) {
   "use server";
 
-  const input = formData.get("input") as string;
+  const user = await currentUser();
 
-  await fetch("/api/chat/new", {
-    method: "POST",
-    body: JSON.stringify({ input }),
+  if (!user) {
+    redirect("/sign-in");
+  }
+
+  const user_id = user.id;
+  const message = formData.get("message") as string;
+
+  const newChat = await db
+    .insert(chatTable)
+    .values({
+      userId: user_id,
+      chatTitle: "New Chat",
+    })
+    .returning();
+  const chatId = newChat[0].chatId;
+  await db.insert(messageTable).values({
+    chatId,
+    userId: user_id,
+    messageText: message,
+    role: "user",
   });
-
-  redirect(`/dashboard/chat/${input}`);
+  redirect(`/dashboard/chat/${chatId}`);
 }
 
 export default function NewChatPage() {

@@ -1,6 +1,7 @@
 import React from "react";
 import UserAccountButton from "../../components/UserAccountButton";
 import { ClerkProvider } from "@clerk/nextjs";
+import Link from "next/link";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -8,7 +9,12 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       <header className="supports-backdrop-blur:bg-background/90 sticky top-0 z-40 w-full bg-background/40 backdrop-blur-lg">
         <div className="flex h-14 items-center">
           <div className="mr-4 hidden md:flex">
-            <span className="hidden font-bold md:inline-block">Tailormade</span>
+            <Link
+              href="/dashboard"
+              className="hidden font-bold md:inline-block"
+            >
+              Tailormade
+            </Link>
             <div className="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80">
               Beta
             </div>

@@ -3,11 +3,7 @@ import { LucideCircleArrowUp } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import { Button } from "./ui/button";
 
-type Props = {
-  onEnter: (input: string) => void;
-};
-
-const ChatInput = ({ onEnter }: Props) => {
+const ChatInput = () => {
   const ref = useRef<HTMLTextAreaElement>(null);
   const [input, setInput] = useState("");
 
@@ -17,7 +13,7 @@ const ChatInput = ({ onEnter }: Props) => {
         return;
       }
       if (input === "") {
-        ref.current.style.height = "20px";
+        ref.current.style.height = "24px";
         return;
       }
       ref.current.style.height = ref.current.scrollHeight + "px";
@@ -31,10 +27,14 @@ const ChatInput = ({ onEnter }: Props) => {
   return (
     <div className="grid grid-cols-1 gap-4 border border-gray-200 p-4 rounded-lg">
       <textarea
+        name="message"
         ref={ref}
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        className="min-h-10 flex-1 resize-y border-none focus-visible:ring-0 focus-visible:ring-offset-0 p-2 font-sans ring-0 outline-none"
+        style={{
+          height: "24px",
+        }}
+        className="flex-1 resize-y border-none focus-visible:ring-0 focus-visible:ring-offset-0 font-sans ring-0 outline-none"
         placeholder="Let's get started"
         onKeyDown={(event) => {
           if (event.key === "Enter") {
