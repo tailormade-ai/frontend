@@ -1,8 +1,8 @@
 import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
-import { Header } from "./components/Header";
 import GradualSpacing from "@/components/ui/gradual-spacing";
-import { FeatureSection } from "./components/Features";
+import { FeatureSection } from "@/components/Features";
+import { Header } from "@/components/Header";
 
 export default function Home() {
   return (
