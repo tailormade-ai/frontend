@@ -5,7 +5,7 @@ import { SignOutButton } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
 import React from "react";
-import AddOAuth from "../components/AddOAuth";
+import AddOAuth from "../../components/AddOAuth";
 
 const upsertUser = async (userId: string, email: string) => {
   const existingUser = await db

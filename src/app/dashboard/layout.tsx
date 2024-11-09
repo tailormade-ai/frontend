@@ -1,5 +1,5 @@
 import React from "react";
-import UserAccountButton from "../components/UserAccountButton";
+import UserAccountButton from "../../components/UserAccountButton";
 import { ClerkProvider } from "@clerk/nextjs";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
