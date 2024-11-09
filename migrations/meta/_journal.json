@@ -15,6 +15,13 @@
       "when": 1730733484489,
       "tag": "0001_glamorous_psylocke",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1731121989726,
+      "tag": "0002_clean_crystal",
+      "breakpoints": true
     }
   ]
 }

@@ -16,6 +16,32 @@ export const usersTable = sqliteTable("users", {
   ),
 });
 
+export const chatTable = sqliteTable('chats', {
+  chatId: integer('chat_id').primaryKey({
+    autoIncrement:true
+  }),
+  userId: integer('user_id').notNull(), // Foreign key to users table if exists
+  createdAt: text("created_at")
+    .notNull()
+    .default(sql`CURRENT_TIMESTAMP`),
+  chatTitle: text("chat_title")
+});
+
+export const messageTable = sqliteTable('messages', {
+  messageId: integer("message_id").primaryKey({
+    autoIncrement: true
+  }),
+  chatId: integer("chat_id")
+    .notNull()
+    .references(() => chatTable.chatId), // Foreign key to chats table
+  userId: integer("user_id").notNull(), // Foreign key to users table
+  messageText: text("message_text").notNull(),
+  timestamp: text("created_at")
+    .notNull()
+    .default(sql`CURRENT_TIMESTAMP`),
+  isRead: integer("is_read").default(0).notNull() // Flag for read/unread status; 0 for false, 1 for true
+});
+
 export const oauthTokensTable = sqliteTable("oauth_tokens", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   userId: text("user_id")
@@ -37,6 +63,12 @@ export const oauthTokensTable = sqliteTable("oauth_tokens", {
     .notNull()
     .default(sql`CURRENT_TIMESTAMP`),
 });
+
+export type InsertChat = typeof chatTable.$inferInsert;
+export type SelectChat = typeof chatTable.$inferSelect;
+export type InsertMessage = typeof messageTable.$inferInsert;
+export type SelectMessage = typeof messageTable.$inferSelect;
+
 
 export type InsertOrganization = typeof organizationsTable.$inferInsert;
 export type SelectOrganization = typeof organizationsTable.$inferSelect;
