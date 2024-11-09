@@ -23,6 +23,8 @@
     "@radix-ui/react-separator": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.2",
+    "@swc/cli": "^0.5.0",
+    "@swc/core": "^1.9.1",
     "ai": "^3.4.33",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
