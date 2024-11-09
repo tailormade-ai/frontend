@@ -10,7 +10,8 @@
     "studio": "drizzle-kit studio",
     "generate": "drizzle-kit generate",
     "migrate": "drizzle-kit migrate",
-    "push": "drizzle-kit push"
+    "push": "drizzle-kit push",
+    "next": "next"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.1.0",
