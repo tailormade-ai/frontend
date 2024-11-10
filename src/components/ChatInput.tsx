@@ -3,7 +3,11 @@ import { LucideCircleArrowUp } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import { Button } from "./ui/button";
 
-const ChatInput = () => {
+type Props = {
+  disabled?: boolean;
+};
+
+const ChatInput = ({ disabled = false }: Props) => {
   const ref = useRef<HTMLTextAreaElement>(null);
   const [input, setInput] = useState("");
 
@@ -27,6 +31,7 @@ const ChatInput = () => {
   return (
     <div className="grid grid-cols-1 gap-4 border border-gray-200 p-4 rounded-lg">
       <textarea
+        disabled={disabled}
         name="message"
         ref={ref}
         value={input}
@@ -40,11 +45,12 @@ const ChatInput = () => {
           if (event.key === "Enter") {
             event.preventDefault();
             event.currentTarget.form?.requestSubmit();
+            setInput("");
           }
         }}
       />
       <div className="flex justify-end">
-        <Button type="submit">
+        <Button type="submit" disabled={disabled}>
           <LucideCircleArrowUp />
         </Button>
       </div>

@@ -1,66 +1,78 @@
 "use client";
-import React from "react";
-import { Textarea } from "./ui/textarea";
-import { Button } from "./ui/button";
-import { useChat, Message } from "@ai-sdk/react";
+import React, { useEffect, useRef } from "react";
 import ChatMessage from "./ChatMessage";
-import { SelectMessage } from "@/db/schema";
 import ChatInput from "./ChatInput";
+import { useChat } from "@/hooks/use-chat";
+import { Skeleton } from "./ui/skeleton";
+import { SparklesIcon } from "lucide-react";
+import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
+import { ThinkingMessage } from "./ThinkingMessage";
 
 type Props = {
-  initialMessages: SelectMessage[];
   chatId: string;
 };
 
-const ChatContainer = ({ initialMessages, chatId }: Props) => {
-  const { messages, append, setMessages } = useChat({
-    api: "/api/backend/chat/completions",
-    initialMessages: initialMessages.map((item) => ({
-      id: item.messageId.toString(),
-      role: item.role as Message["role"],
-      content: item.messageText,
-    })),
-    experimental_prepareRequestBody: ({ messages }) => {
-      return {
-        chat_id: chatId,
-        message: messages[messages.length - 1].content,
-      };
-    },
-    onResponse: async (response) => {
-      const respBody = await response.json();
-      setMessages([
-        ...messages,
-        {
-          id: respBody.message_id,
-          role: "assistant",
-          content: respBody.message,
-        },
-      ]);
-    },
-  });
+const ChatContainer = ({ chatId }: Props) => {
+  const { messages, isFetchingMessages, sendMessage, isSendingMessage } =
+    useChat({
+      chatId,
+    });
+  const messagesDivRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    messagesDivRef.current?.scrollTo({
+      top: messagesDivRef.current.scrollHeight,
+      behavior: "smooth",
+    });
+  }, [messages]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    append({ content: e.currentTarget.message.value, role: "user" });
+    const formData = new FormData(e.currentTarget);
+    const message = formData.get("message") as string;
+    sendMessage(message);
+    e.currentTarget.reset();
   };
 
-  console.log(messages);
+  if (isFetchingMessages) {
+    return (
+      <div className="flex flex-col gap-4 h-[calc(100vh-5rem)] max-w-4xl w-full mx-auto">
+        <div className="pt-4 flex-1 overflow-y-auto my-4">
+          <Skeleton className="h-[50px] rounded-lg mb-6 w-[60%] ml-auto" />
+
+          <Skeleton className="h-[50px] rounded-lg my-2 w-[60%]" />
+          <Skeleton className="h-[50px] rounded-lg my-2 w-[60%]" />
+
+          <Skeleton className="h-[50px] rounded-lg my-6 w-[60%] ml-auto" />
+        </div>
+        <ChatInput disabled={true} />
+      </div>
+    );
+  }
+
   return (
-    <div className="flex flex-col gap-4 h-[700px] border p-4 border-gray-200 rounded-lg">
-      <div className="pt-4 flex-1 overflow-y-auto my-4">
-        {messages.map((item) => {
+    <div className="flex flex-col h-[calc(100vh-5rem)]">
+      <div
+        ref={messagesDivRef}
+        className="flex-1 overflow-y-auto space-y-4 my-4"
+      >
+        {messages?.map((item, idx) => {
           return (
             <ChatMessage
-              key={item.id}
-              content={item.content}
-              role={item.role}
+              key={idx}
+              content={item["message_text"]}
+              role={item["role"]}
             />
           );
         })}
+        <div className="pb-4">{isSendingMessage && <ThinkingMessage />}</div>
       </div>
-      <form onSubmit={handleSubmit}>
-        <ChatInput />
-      </form>
+      <div className="max-w-4xl w-full mx-auto">
+        <form onSubmit={handleSubmit}>
+          <ChatInput />
+        </form>
+      </div>
     </div>
   );
 };
